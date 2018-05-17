@@ -1,30 +1,24 @@
 pipeline {
-  agent {
-    docker {
-      image 'maven'
-      args '-di maven /bin/bash'
+    agent any
+    tools {
+        maven 'maven'
+        jdk 'jdk'
     }
-
-  }
-  stages {
-    stage('test0') {
-      steps {
-        sh '''echo PATH = ${PATH}
-
-'''
-        sh 'echo M2_HOME = ${M2_HOME}'
-      }
+    stages {
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                }
+            }
+        }
     }
-    stage('build') {
-      steps {
-        sh 'mvn -D maven.test.failure.ignore=true INSTALL'
-      }
-    }
-    stage('report') {
-      steps {
-        junit 'target/surefire-reports/**/*.xml'
-        archiveArtifacts 'target/*.jar.target/*.hpi'
-      }
-    }
-  }
 }
