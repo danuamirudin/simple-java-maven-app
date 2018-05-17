@@ -1,7 +1,7 @@
 pipeline {
   agent {
     node {
-      label 'compiler'
+      label '10.80.80.10'
     }
 
   }
