@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        sh 'sudo apt install openstack -y'
+        sh 'sudo apt install nano'
       }
     }
   }
