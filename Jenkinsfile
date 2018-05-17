@@ -1,8 +1,8 @@
 pipeline {
   agent {
     docker {
-      image 'maven:3.3.9-jdk-8'
-      args '-di maven:3.3.9-jdk-8 /bin/bash'
+      image 'maven'
+      args '-di maven /bin/bash'
     }
 
   }
